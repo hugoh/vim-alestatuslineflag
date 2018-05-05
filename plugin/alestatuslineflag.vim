@@ -105,24 +105,24 @@ function! AleStatuslineFlag() abort
   let l:output = get(g:, 'alestatusline_format', '')
 
   "hide stuff wrapped in %E(...) unless there are errors
-  let l:output = substitute(l:output, '\m\C%E{\([^}]*\)}', l:num_errors ? '\1' : '' , 'g')
+  let l:output = substitute(l:output, '\m\C%E{\([^}]*\)}', l:ale_counts.error ? '\1' : '' , 'g')
 
   "hide stuff wrapped in %W(...) unless there are warnings
-  let l:output = substitute(l:output, '\m\C%W{\([^}]*\)}', l:num_warnings ? '\1' : '' , 'g')
+  let l:output = substitute(l:output, '\m\C%W{\([^}]*\)}', l:ale_counts.warning ? '\1' : '' , 'g')
 
   "hide stuff wrapped in %B(...) unless there are both errors and warnings
-  let l:output = substitute(l:output, '\m\C%B{\([^}]*\)}', (l:num_warnings && l:num_errors) ? '\1' : '' , 'g')
+  let l:output = substitute(l:output, '\m\C%B{\([^}]*\)}', (l:ale_counts.warning && l:ale_counts.error) ? '\1' : '' , 'g')
 
   let l:flags = {
       \ '%':  '%',
-      \ 't':  l:num_issues,
-      \ 'e':  l:num_errors,
-      \ 'w':  l:num_warnings,
-      \ 'se': l:num_styleerrors,
-      \ 'sw': l:num_stylewarnings,
-      \ 'F':  (l:num_issues ? s:getAleLocListLine(l:buffer, v:null) : ''),
-      \ 'fe': (l:num_errors ? s:getAleLocListLine(l:buffer, 'E') : ''),
-      \ 'fw': (l:num_warnings ? s:getAleLocListLine(l:buffer, 'W') : ''),
+      \ 't':  l:ale_counts.total,
+      \ 'e':  l:ale_counts.error,
+      \ 'w':  l:ale_counts.warning,
+      \ 'se': l:ale_counts.style_error,
+      \ 'sw': l:ale_counts.style_warning,
+      \ 'F':  (l:ale_counts.total ? s:getAleLocListLine(l:buffer, v:null) : ''),
+      \ 'fe': (l:ale_counts.error ? s:getAleLocListLine(l:buffer, 'E') : ''),
+      \ 'fw': (l:ale_counts.warning ? s:getAleLocListLine(l:buffer, 'W') : ''),
       \ 'N':  '',
       \ 'P':  '',
       \ 'ne': '',
