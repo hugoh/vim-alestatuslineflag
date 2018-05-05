@@ -6,4 +6,4 @@ This is an implementation of `SyntasticStatuslineFlag` for [ALE](https://github.
 
 ## Documentation
 
-See [doc/buffercount-flag.txt](doc/buffercount-flag.txt).
+See [doc/alestatuslineflag.txt](doc/alestatuslineflag.txt).
