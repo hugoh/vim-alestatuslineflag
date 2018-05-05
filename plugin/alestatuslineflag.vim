@@ -82,12 +82,13 @@ let g:alestatusline_format = get(g:, 'alestatusline_format', '[Syntax: line:%F (
 ""
 " Returns ALE statusline flag per |g:alestatusline_format|
 function! AleStatuslineFlag() abort
-  if !exists('*ale#statusline#Count')
-    return
-  endif
 
   let l:buffer = bufnr('')
-  let l:ale_counts = ale#statusline#Count(l:buffer)
+  try
+    let l:ale_counts = ale#statusline#Count(l:buffer)
+  catch /E117/
+    return ''
+  endtry
 
   " From |ale#statusline#Count|:
   " `error`         -> The number of problems with type `E` and `sub_type != 'style'`
