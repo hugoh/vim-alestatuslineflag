@@ -98,11 +98,9 @@ function! AleStatuslineFlag() abort
   " `style_warning` -> The number of problems with type `W` and `sub_type == 'style'`
   " `total`         -> The total number of problems.
 
-  let l:num_errors = l:ale_counts.error
-  let l:num_warnings = l:ale_counts.warning
-  let l:num_styleerrors = l:ale_counts.style_error
-  let l:num_stylewarnings = l:ale_counts.style_warning
-  let l:num_issues = l:ale_counts.total
+  if !l:ale_counts.total
+    return ''
+  endif
 
   let l:output = get(g:, 'alestatusline_format', '')
 
