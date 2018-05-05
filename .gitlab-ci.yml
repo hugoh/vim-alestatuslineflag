@@ -1,0 +1,13 @@
+stages:
+  - test
+
+before_script:
+  - apt update -qy
+  - apt upgrade -qy
+
+lint:
+  stage: test
+  image: python:latest
+  script:
+    - pip install vim-vint
+    - make lint
