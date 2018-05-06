@@ -1,13 +1,19 @@
-.PHONY: default lint doc
+.PHONY: default lint test testsetup doc
 
-PLUGIN=alestatuslineflag
+PLUGIN=alestatusline
 
-default: lint doc
+default: lint testsetup test doc
 
 lint:
-	vint plugin/${PLUGIN}.vim
+	vint autoload/${PLUGIN}.vim
+
+testsetup:
+	test/setup.sh
+
+test: testsetup
+	test/run.sh
 
 doc: doc/${PLUGIN}.txt
 
-doc/${PLUGIN}.txt: plugin/${PLUGIN}.vim addon-info.json
+doc/${PLUGIN}.txt: autoload/${PLUGIN}.vim addon-info.json
 	vimdoc .

@@ -5,9 +5,9 @@ before_script:
   - apt update -qy
   - apt upgrade -qy
 
-lint:
+test:
   stage: test
   image: python:latest
   script:
     - pip install vim-vint
-    - make lint
+    - make lint test

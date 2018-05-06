@@ -1,25 +1,25 @@
-*alestatuslineflag.txt*	AleStatuslineFlag: SyntasticStatuslineFlag for ALE
-Hugo Haas <hugoh@hugoh.net>                                *alestatuslineflag*
+*alestatusline.txt*	alestatusline: SyntasticStatuslineFlag for ALE
+Hugo Haas <hugoh@hugoh.net>                                    *alestatusline*
 
 ==============================================================================
-CONTENTS                                          *alestatuslineflag-contents*
-  1. Introduction....................................|alestatuslineflag-intro|
-  2. Configuration..................................|alestatuslineflag-config|
+CONTENTS                                              *alestatusline-contents*
+  1. Introduction........................................|alestatusline-intro|
+  2. Configuration......................................|alestatusline-config|
 
 ==============================================================================
-INTRODUCTION                                         *alestatuslineflag-intro*
+INTRODUCTION                                             *alestatusline-intro*
 
 This plugin is a port of `SyntasticStatuslineFlag()` for |ALE|. Some aspects
 are currently not supported.
 
 To use the statusline flag, this must appear in your |'statusline'| setting
 >
-    %{AleStatuslineFlag()}
+    %{alestatusline#flag()}
 <
 Something like this could be more useful:
 >
     set statusline+=%#warningmsg#
-    set statusline+=%{AleStatuslineFlag()}
+    set statusline+=%{alestatusline#flag()}
     set statusline+=%*
 <
 When syntax errors are detected a flag will be shown. The content of the flag
@@ -30,11 +30,11 @@ As an example, the |flagship| Vim plugin
 on the |'statusline'|. To allow |flagship| to manage this statusline flag add
 the following |autocommand| to your vimrc:
 >
-    autocmd User Flags call Hoist("window", "AleStatuslineFlag")
+    autocmd User Flags call Hoist("window", 'alestatusline#flag')
 <
 
 ==============================================================================
-CONFIGURATION                                       *alestatuslineflag-config*
+CONFIGURATION                                           *alestatusline-config*
 
                                                       *g:alestatusline_format*
 Default: '[Syntax: line:%F (%t)]'

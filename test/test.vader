@@ -1,0 +1,19 @@
+Execute (format):
+  AssertEqual alestatusline#_format('', {'error':0, 'warning':0, 'style_error':0, 'style_warning':0, 'total':0}, 1), ''
+  AssertEqual alestatusline#_format('blah', {'error':0, 'warning':0, 'style_error':0, 'style_warning':0, 'total':0}, 1), 'blah'
+  AssertEqual alestatusline#_format('blah%E{foo}', {'error':1, 'warning':0, 'style_error':0, 'style_warning':0, 'total':0}, 1), 'blahfoo'
+  AssertEqual alestatusline#_format('blah%E{foo%e}', {'error':1, 'warning':0, 'style_error':0, 'style_warning':0, 'total':0}, 1), 'blahfoo1'
+  AssertEqual alestatusline#_format('blah%W{foo%w}', {'error':1, 'warning':2, 'style_error':0, 'style_warning':0, 'total':0}, 1), 'blahfoo2'
+  AssertEqual alestatusline#_format('%B{foo%w}', {'error':1, 'warning':2, 'style_error':0, 'style_warning':0, 'total':0}, 1), 'foo2'
+  AssertEqual alestatusline#_format('%B{foo%w}', {'error':0, 'warning':2, 'style_error':0, 'style_warning':0, 'total':0}, 1), ''
+  AssertEqual alestatusline#_format('%B{foo%w}', {'error':1, 'warning':0, 'style_error':0, 'style_warning':0, 'total':0}, 1), ''
+  AssertEqual alestatusline#_format('%e %w %se %sw %t', {'error':1, 'warning':2, 'style_error':3, 'style_warning':4, 'total':10}, 1), '1 2 3 4 10'
+
+Execute (get first loc):
+  AssertEqual alestatusline#_getFirstLoc([{'type':'E', 'lnum':4}], 'E'), 4
+  AssertEqual alestatusline#_getFirstLoc([{'type':'E', 'lnum':4}], 'W'), 0
+  AssertEqual alestatusline#_getFirstLoc([{'type':'E', 'lnum':4}, {'type':'W', 'lnum':6}], 'W'), 6
+  AssertEqual alestatusline#_getFirstLoc([{'type':'E', 'lnum':4}, {'type':'W', 'lnum':6}], v:null), 4
+  AssertEqual alestatusline#_getFirstLoc([], v:null), 0
+  AssertEqual alestatusline#_getFirstLoc([], 'E'), 0
+  AssertEqual alestatusline#_getFirstLoc([], 'W'), 0

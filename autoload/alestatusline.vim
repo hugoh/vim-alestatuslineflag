@@ -4,11 +4,11 @@
 " are currently not supported.
 "
 " To use the statusline flag, this must appear in your |'statusline'| setting >
-"     %{AleStatuslineFlag()}
+"     %{alestatusline#flag()}
 " <
 " Something like this could be more useful: >
 "     set statusline+=%#warningmsg#
-"     set statusline+=%{AleStatuslineFlag()}
+"     set statusline+=%{alestatusline#flag()}
 "     set statusline+=%*
 " <
 " When syntax errors are detected a flag will be shown. The content of the flag
@@ -18,13 +18,13 @@
 " own mechanism of showing flags on the |'statusline'|. To allow |flagship|
 " to manage this statusline flag add the following |autocommand| to
 " your vimrc: >
-"     autocmd User Flags call Hoist("window", "AleStatuslineFlag")
+"     autocmd User Flags call Hoist("window", 'alestatusline#flag')
 " <
 
-if exists('g:loaded_alestatuslineflag')
+if exists('g:loaded_alestatusline')
   finish
 endif
-let g:loaded_alestatuslineflag = 1
+let g:loaded_alestatusline = 1
 
 ""
 " Default: '[Syntax: line:%F (%t)]'
@@ -81,7 +81,7 @@ let g:alestatusline_format = get(g:, 'alestatusline_format', '[Syntax: line:%F (
 
 ""
 " Returns ALE statusline flag per |g:alestatusline_format|
-function! AleStatuslineFlag() abort
+function! alestatusline#flag() abort
 
   let l:buffer = bufnr('')
   try
@@ -102,27 +102,36 @@ function! AleStatuslineFlag() abort
     return ''
   endif
 
-  let l:output = get(g:, 'alestatusline_format', '')
+  let l:template = get(g:, 'alestatusline_format', '')
+
+  return alestatusline#_format(l:template, l:ale_counts, l:buffer)
+endfunction
+
+" Internal {{{
+
+function! alestatusline#_format(template, ale_counts, buffer) abort
+
+  let l:output = a:template
 
   "hide stuff wrapped in %E(...) unless there are errors
-  let l:output = substitute(l:output, '\m\C%E{\([^}]*\)}', l:ale_counts.error ? '\1' : '' , 'g')
+  let l:output = substitute(l:output, '\m\C%E{\([^}]*\)}', a:ale_counts.error ? '\1' : '' , 'g')
 
   "hide stuff wrapped in %W(...) unless there are warnings
-  let l:output = substitute(l:output, '\m\C%W{\([^}]*\)}', l:ale_counts.warning ? '\1' : '' , 'g')
+  let l:output = substitute(l:output, '\m\C%W{\([^}]*\)}', a:ale_counts.warning ? '\1' : '' , 'g')
 
   "hide stuff wrapped in %B(...) unless there are both errors and warnings
-  let l:output = substitute(l:output, '\m\C%B{\([^}]*\)}', (l:ale_counts.warning && l:ale_counts.error) ? '\1' : '' , 'g')
+  let l:output = substitute(l:output, '\m\C%B{\([^}]*\)}', (a:ale_counts.warning && a:ale_counts.error) ? '\1' : '' , 'g')
 
   let l:flags = {
       \ '%':  '%',
-      \ 't':  l:ale_counts.total,
-      \ 'e':  l:ale_counts.error,
-      \ 'w':  l:ale_counts.warning,
-      \ 'se': l:ale_counts.style_error,
-      \ 'sw': l:ale_counts.style_warning,
-      \ 'F':  (l:ale_counts.total ? s:getAleLocListLine(l:buffer, v:null) : ''),
-      \ 'fe': (l:ale_counts.error ? s:getAleLocListLine(l:buffer, 'E') : ''),
-      \ 'fw': (l:ale_counts.warning ? s:getAleLocListLine(l:buffer, 'W') : ''),
+      \ 't':  a:ale_counts.total,
+      \ 'e':  a:ale_counts.error,
+      \ 'w':  a:ale_counts.warning,
+      \ 'se': a:ale_counts.style_error,
+      \ 'sw': a:ale_counts.style_warning,
+      \ 'F':  (a:ale_counts.total ? alestatusline#_getAleLocListLine(a:buffer, v:null) : ''),
+      \ 'fe': (a:ale_counts.error ? alestatusline#_getAleLocListLine(a:buffer, 'E') : ''),
+      \ 'fw': (a:ale_counts.warning ? alestatusline#_getAleLocListLine(a:buffer, 'W') : ''),
       \ 'N':  '',
       \ 'P':  '',
       \ 'ne': '',
@@ -135,11 +144,17 @@ function! AleStatuslineFlag() abort
   return l:output
 endfunction
 
-function! s:getAleLocListLine(buffer, type)
-  for l:pb in ale#engine#GetLoclist(a:buffer)
+function! alestatusline#_getAleLocListLine(buffer, type) abort
+  return alestatusline#_getFirstLoc(ale#engine#GetLoclist(a:buffer), a:type)
+endfunction
+
+function! alestatusline#_getFirstLoc(loclist, type) abort
+  for l:pb in a:loclist
     if a:type is v:null || l:pb.type ==# a:type
       return l:pb.lnum
     endif
   endfor
   return 0
 endfunction
+
+" }}}

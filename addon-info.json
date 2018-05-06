@@ -1,7 +1,7 @@
 {
-  "name": "alestatuslineflag",
-  "description": "AleStatuslineFlag: SyntasticStatuslineFlag for ALE",
+  "name": "alestatusline",
+  "description": "alestatusline: SyntasticStatuslineFlag for ALE",
   "author": "Hugo Haas <hugoh@hugoh.net>",
-  "repository": {"type": "git", "url": "git://gitlab.com/hugoh/vim-alestatuslineflag"}
+  "repository": {"type": "git", "url": "git://gitlab.com/hugoh/vim-alestatusline"}
 }
 

@@ -1,9 +1,9 @@
-# alestatuslineflag.vim: SyntasticStatuslineFlag for ALE
+# alestatusline: SyntasticStatuslineFlag for ALE
 
-[![pipeline status](https://gitlab.com/hugoh/vim-alestatuslineflag/badges/master/pipeline.svg)](https://gitlab.com/hugoh/vim-alestatuslineflag/commits/master)
+[![pipeline status](https://gitlab.com/hugoh/vim-alestatusline/badges/master/pipeline.svg)](https://gitlab.com/hugoh/vim-alestatusline/commits/master)
 
 This is an implementation of `SyntasticStatuslineFlag` for [ALE](https://github.com/w0rp/ale).
 
 ## Documentation
 
-See [doc/buffercount-flag.txt](doc/buffercount-flag.txt).
+See [doc/alestatusline.txt](doc/alestatusline.txt).
