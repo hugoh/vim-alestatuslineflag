@@ -9,5 +9,6 @@ test:
   stage: test
   image: python:latest
   script:
+    - apt install -qy vim
     - pip install vim-vint
     - make lint test
