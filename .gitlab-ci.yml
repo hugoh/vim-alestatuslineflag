@@ -3,13 +3,10 @@ stages:
 
 test:
   stage: test
-  image: python:latest
+  image: debian:stable
   script:
     - apt update -y
     - apt upgrade -y
-    - apt install -y software-properties-common 
-    - add-apt-repository ppa:jonathonf/vim
-    - apt update -y
-    - apt install -y vim
+    - apt install -y vim python-pip make
     - pip install vim-vint
     - make lint test
