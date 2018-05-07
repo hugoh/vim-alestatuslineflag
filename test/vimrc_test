@@ -1,8 +1,8 @@
 filetype off
-set runtimepath+=vader.vim
+set runtimepath+=test/vader.vim
 set runtimepath+=.
 set runtimepath+=after
-source ../autoload/alestatusline.vim
+source autoload/alestatusline.vim
 filetype plugin indent on
 syntax enable
 
