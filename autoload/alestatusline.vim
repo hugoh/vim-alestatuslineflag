@@ -129,7 +129,7 @@ function! alestatusline#_format(template, ale_counts, buffer) abort
       \ 'w':  a:ale_counts.warning,
       \ 'se': a:ale_counts.style_error,
       \ 'sw': a:ale_counts.style_warning,
-      \ 'F':  (a:ale_counts.total ? alestatusline#_getAleLocListLine(a:buffer, v:null) : ''),
+      \ 'F':  (a:ale_counts.total ? alestatusline#_getAleLocListLine(a:buffer, '') : ''),
       \ 'fe': (a:ale_counts.error ? alestatusline#_getAleLocListLine(a:buffer, 'E') : ''),
       \ 'fw': (a:ale_counts.warning ? alestatusline#_getAleLocListLine(a:buffer, 'W') : ''),
       \ 'N':  '',
@@ -150,7 +150,7 @@ endfunction
 
 function! alestatusline#_getFirstLoc(loclist, type) abort
   for l:pb in a:loclist
-    if a:type is v:null || l:pb.type ==# a:type
+    if a:type ==# '' || l:pb.type ==# a:type
       return l:pb.lnum
     endif
   endfor

@@ -13,7 +13,7 @@ Execute (get first loc):
   AssertEqual alestatusline#_getFirstLoc([{'type':'E', 'lnum':4}], 'E'), 4
   AssertEqual alestatusline#_getFirstLoc([{'type':'E', 'lnum':4}], 'W'), 0
   AssertEqual alestatusline#_getFirstLoc([{'type':'E', 'lnum':4}, {'type':'W', 'lnum':6}], 'W'), 6
-  AssertEqual alestatusline#_getFirstLoc([{'type':'E', 'lnum':4}, {'type':'W', 'lnum':6}], v:null), 4
-  AssertEqual alestatusline#_getFirstLoc([], v:null), 0
+  AssertEqual alestatusline#_getFirstLoc([{'type':'E', 'lnum':4}, {'type':'W', 'lnum':6}], ''), 4
+  AssertEqual alestatusline#_getFirstLoc([], ''), 0
   AssertEqual alestatusline#_getFirstLoc([], 'E'), 0
   AssertEqual alestatusline#_getFirstLoc([], 'W'), 0
