@@ -2,13 +2,15 @@ stages:
   - test
 
 before_script:
-  - apt update -qy
-  - apt upgrade -qy
+  - apt update -y
+  - apt upgrade -y
 
 test:
   stage: test
   image: python:latest
   script:
-    - apt install -qy vim
+    - add-apt-repository ppa:jonathonf/vim
+    - apt update -y
+    - apt install -y vim
     - pip install vim-vint
     - make lint test
