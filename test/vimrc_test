@@ -6,3 +6,7 @@ source autoload/alestatusline.vim
 filetype plugin indent on
 syntax enable
 
+" mock
+function! ale#engine#GetLoclist(buffer)
+  return
+endfunction
