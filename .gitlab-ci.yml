@@ -9,4 +9,5 @@ test:
     - apt upgrade -y
     - apt install -y git vim python-pip make
     - pip install vim-vint
-    - make lint test
+    - make lint
+    # - make test
