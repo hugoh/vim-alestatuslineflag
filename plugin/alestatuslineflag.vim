@@ -1,8 +1,13 @@
 ""
 " @section Introduction, intro
+" @order intro flag runningflag config functions credits
 " This plugin is a port of `SyntasticStatuslineFlag()` for |ALE|. Some aspects
-" are currently not supported.
-"
+" are currently not supported. It also add an implementation of the
+" linting-in-progress example from |ALELintPre-autocmd|.
+
+
+""
+" @section Statusline flag, flag
 " To use the statusline flag, this must appear in your |'statusline'| setting >
 "     %{AleStatuslineFlag()}
 " <
@@ -75,13 +80,15 @@ let g:loaded_alestatuslineflag = 1
 " <
 let g:alestatusline_format = get(g:, 'alestatusline_format', '[Syntax: line:%F (%t)]')
  
-" Heavily based on SyntasticLoclist.getStatuslineFlag()
+""
+" @section Credits, credits
+"
+" Heavily based on SyntasticLoclist.getStatuslineFlag(), under WTFPL at:
 " http://github.com/vim-syntastic/syntastic
-" under WTFPL
 
 ""
 " Returns ALE statusline flag per |g:alestatusline_format|
-function! AleStatuslineFlag() abort
+function! AleStatuslineFlag()
 
   let l:buffer = bufnr('')
   try
