@@ -5,7 +5,7 @@ PLUGIN=alestatuslineflag
 default: lint doc
 
 lint:
-	vint plugin/${PLUGIN}.vim
+	vint plugin/*.vim
 
 doc: doc/${PLUGIN}.txt
 

@@ -4,13 +4,20 @@ Hugo Haas <hugoh@hugoh.net>                                *alestatuslineflag*
 ==============================================================================
 CONTENTS                                          *alestatuslineflag-contents*
   1. Introduction....................................|alestatuslineflag-intro|
-  2. Configuration..................................|alestatuslineflag-config|
+  2. Statusline flag..................................|alestatuslineflag-flag|
+  3. Running flag..............................|alestatuslineflag-runningflag|
+  4. Configuration..................................|alestatuslineflag-config|
+  5. Credits.......................................|alestatuslineflag-credits|
 
 ==============================================================================
 INTRODUCTION                                         *alestatuslineflag-intro*
 
 This plugin is a port of `SyntasticStatuslineFlag()` for |ALE|. Some aspects
-are currently not supported.
+are currently not supported. It also add an implementation of the
+linting-in-progress example from |ALELintPre-autocmd|.
+
+==============================================================================
+STATUSLINE FLAG                                       *alestatuslineflag-flag*
 
 To use the statusline flag, this must appear in your |'statusline'| setting
 >
@@ -32,6 +39,17 @@ the following |autocommand| to your vimrc:
 >
     autocmd User Flags call Hoist("window", "AleStatuslineFlag")
 <
+
+==============================================================================
+RUNNING FLAG                                   *alestatuslineflag-runningflag*
+
+
+To use the running flag, do:
+>
+    let g:alestatusline_runningredraw = 1
+<
+and add |AleStatuslineRunning()| to your statusline, similar to the
+|AleStatuslineFlag()| setup.
 
 ==============================================================================
 CONFIGURATION                                       *alestatuslineflag-config*
@@ -86,6 +104,25 @@ If the buffer had 2 warnings, starting on line 5 then this would appear:
 >
     [Warn: 5 #2]
 <
+
+                                                  *g:alestatusline_runningmsg*
+Default: 'linting'
+
+Message to display with |AleStatuslineRunning()| when ALE is running
+
+                                               *g:alestatusline_runningredraw*
+Default: 0
+
+Whether to redraw the statusline after ALE running status has changed; if you
+use |AleStatuslineRunning| in your statusline, you'll most likely want this
+on.
+
+==============================================================================
+CREDITS                                            *alestatuslineflag-credits*
+
+
+Heavily based on SyntasticLoclist.getStatuslineFlag(), under WTFPL at:
+http://github.com/vim-syntastic/syntastic
 
 
 vim:tw=78:ts=8:ft=help:norl:
