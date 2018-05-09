@@ -33,7 +33,7 @@ function! s:mark_ale_running(onoff)
     endif
 endfunction
 
-augroup vimrc_ALEProgress
+augroup alestatuslinerunning_ag
   autocmd!
   autocmd User ALELintPre  call s:mark_ale_running(1)
   autocmd User ALELintPost call s:mark_ale_running(0)
