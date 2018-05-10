@@ -9,5 +9,5 @@ lint:
 
 doc: doc/${PLUGIN}.txt
 
-doc/${PLUGIN}.txt: plugin/${PLUGIN}.vim addon-info.json
+doc/${PLUGIN}.txt: $(wildcard plugin/*.vim) addon-info.json
 	vimdoc .
